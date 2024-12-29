@@ -101,31 +101,50 @@
     <!-- Section Divider -->
     <div class="divider"></div>
     <!-- Templates -->
-     <div class="templates_section" id="Templates">
+    <div class="templates_section" id="Templates">
         <h1>Create Your Certificate</h1>
         <p>Select a template, enter your details and click on Create Certificate to download or print your files</p>
         <div class="Templates_Container">
-            <img src="assets/Template 1.webp" alt="">
-            <img src="assets/Template 2.webp" alt="">
-            <img src="assets/Template 3.webp" alt="">
-            <img src="assets/Template 4.webp" alt="">
-            <img src="assets/Template 5.webp" alt="">
-            <img src="assets/Template 6.webp" alt="">
-            <img src="assets/Template 7.webp" alt="">
-            <img src="assets/Template 8.webp" alt="">
+            
+            <img src="assets/Template 1.jpg" class="certificate-template" alt="assets/Certificate Template 1.jpg">
+            <img src="assets/Template 2.jpg" class="certificate-template" alt="assets/Certificate Template 2.jpg">
+            <img src="assets/Template 3.webp" class="certificate-template" alt="assets/Certificate Template 3.jpg">
+            <img src="assets/Template 4.webp" class="certificate-template" alt="assets/Certificate Template 4.jpg">
+            <img src="assets/Template 5.webp" class="certificate-template" alt="assets/Certificate Template 5.jpg">
+            <img src="assets/Template 6.webp" class="certificate-template" alt="assets/Certificate Template 6.jpg">
+            <img src="assets/Template 7.webp" class="certificate-template" alt="assets/Certificate Template 7.jpg">
+            <img src="assets/Template 8.webp" class="certificate-template" alt="assets/Certificate Template 8.jpg">
+
         </div>
         <div class="certificate_form">
             <label for="Name">Name</label>
-            <input type="text" placeholder="Enter Your Name">
+            <input type="text" id="inputName" placeholder="Enter Your Name">
             <label for="Date">Date</label>
-            <input type="text" placeholder="Enter Date">
+            <input type="date" id="inputDate" placeholder="Enter Date">
             <label for="Signature">Signature</label>
-            <input type="text" placeholder="Enter Signature">
+            <input type="text" id="inputSignature" placeholder="Enter Signature">
             <label for="Details">Details</label>
-            <textarea name="Details" rows="5" id="Details" placeholder="Enter Details"></textarea>
-            <button>Create Certificate</button>
+            <textarea name="Details" rows="5" id="inputDetails" placeholder="Enter Details"></textarea>
+            <button id="createButton">Create Certificate</button>
         </div>
      </div>
+        <div class="displayCertificateDiv hidden">
+            <h1>Your Certificate is Ready</h1>
+            <div class="generatedCertificate" id="certificateBackground" style="background-image: url('assets/Template 1.webp');">
+                <h2 id="certificateName"></h1>
+                <p id="certificateDate"></p>
+                <p id="certificateSignature"></p>
+                <p id="certificateDetails"></p>
+            </div>
+            <div id="downloadOption">
+                <label for="fileFormat">Choose file format:</label>
+                <select id="fileFormat">
+                    <option value="jpg">JPG</option>
+                    <option value="pdf">PDF</option>
+                </select>
+                <button id="downloadButton">Download Certificate</button>
+            </div>
+        </div>
      
     <!-- Footer -->
     <footer>
@@ -168,6 +187,9 @@
             </div>
             <pre>Made with <i class="fa-solid fa-heart"></i> by Abdul Wahab Saim & Muhammad Rehan</pre>
         </div>
-       </footer>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
