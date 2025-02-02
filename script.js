@@ -16,6 +16,42 @@ let certificateDate = document.querySelector("#certificateDate");
 let certificateSignature = document.querySelector("#certificateSignature");
 let certificateDetails = document.querySelector("#certificateDetails");
 
+// Get the form elements
+let form = document.querySelector(".certificate_form");
+// let createButton = document.querySelector("button");
+
+// Add an event listener to the form submit button
+createButton.addEventListener("click", function (e) {
+    e.preventDefault(); // Prevent the default form submission
+
+    // Get values from the form
+    let inputName = document.querySelector("input[placeholder='Enter Your Name']").value;
+    let inputDate = document.querySelector("#inputDate").value;
+    let inputSignature = document.querySelector("input[placeholder='Enter Signature']").value;
+    let inputDetails = document.querySelector("#certificateDetails").value;
+
+    // Create a FormData object
+    let formData = new FormData();
+    formData.append("name", inputName);
+    formData.append("date", inputDate);
+    formData.append("signature", inputSignature);
+    formData.append("details", inputDetails);
+
+    // Send the form data to PHP using AJAX
+    fetch("api/submit_certificate.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.text())
+    .then(data => {
+        alert(data); // Show success or error message
+        form.reset();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+    
+});
 
 
 // Download logic
