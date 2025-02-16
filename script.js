@@ -1,171 +1,183 @@
-// Accessing Values entered by user
-let inputName = document.querySelector("#inputName");
-let inputDate = document.querySelector("#inputDate");
-let inputSignature = document.querySelector("#inputSignature");
-let inputDetails = document.querySelector("#inputDetails");
-let createButton = document.querySelector("#createButton");
+// Open Modal for Login/Signup
+function openAuthModal(type) {
+    document.getElementById('authModal').style.display = 'block';
+    if(type === 'login'){
+        document.getElementById('loginForm').classList.remove('hidden');
+        document.getElementById('signupForm').classList.add('hidden');
+        document.getElementById('modalTitle').textContent = 'Login';
+    }
+    else{
+         document.getElementById('signupForm').classList.remove('hidden');
+        document.getElementById('loginForm').classList.add('hidden');
+        document.getElementById('modalTitle').textContent = 'Signup';
+    }
+}
 
-let templates = document.querySelectorAll(".certificate-template");
-let displayCertificateDiv = document.querySelector(".displayCertificateDiv");
+// Close Modal
+function closeAuthModal() {
+    document.getElementById('authModal').style.display = 'none';
+    document.getElementById('loginError').textContent = ''; // Clear error messages
+    document.getElementById('signupError').textContent = '';
+}
 
-// Accessing elements to enter details in certificate
-let certificateBackground = document.querySelector("#certificateBackground");
+// Switch to Signup Form
+function switchToSignup() {
+    openAuthModal('signup');
+}
 
-let certificateName = document.querySelector("#certificateName");
-let certificateDate = document.querySelector("#certificateDate");
-let certificateSignature = document.querySelector("#certificateSignature");
-let certificateDetails = document.querySelector("#certificateDetails");
-
-// Get the form elements
-let form = document.querySelector(".certificate_form");
-// let createButton = document.querySelector("button");
-
-// Add an event listener to the form submit button
-createButton.addEventListener("click", function (e) {
-    e.preventDefault(); // Prevent the default form submission
-
-    // Get values from the form
-    let inputName = document.querySelector("input[placeholder='Enter Your Name']").value;
-    let inputDate = document.querySelector("#inputDate").value;
-    let inputSignature = document.querySelector("input[placeholder='Enter Signature']").value;
-    let inputDetails = document.querySelector("#certificateDetails").value;
-
-    // Create a FormData object
-    let formData = new FormData();
-    formData.append("name", inputName);
-    formData.append("date", inputDate);
-    formData.append("signature", inputSignature);
-    formData.append("details", inputDetails);
-
-    // Send the form data to PHP using AJAX
-    fetch("api/submit_certificate.php", {
-        method: "POST",
-        body: formData
-    })
-    .then(response => response.text())
+// Switch to Login Form
+function switchToLogin() {
+    openAuthModal('login');
+}
+// Function to handle user logout
+function handleLogout() {
+    // Send a request to the logout API
+    fetch('api/logout.php')
+    .then(response => response.json())
     .then(data => {
-        alert(data); // Show success or error message
-        form.reset();
+        if (data.success) {
+            // Redirect to the home page
+            window.location.href = 'index.html';
+        } else {
+            console.error('Logout failed:', data.error);
+            // Optionally display an error message to the user
+        }
     })
     .catch(error => {
-        console.error('Error:', error);
+        console.error('Network error during logout:', error);
+        // Optionally display an error message to the user
     });
-    
-});
+}
 
+// Show User Profile/Dashboard and Hide Login/Signup
+function showUserProfile(userName) { // Accept userName as argument
+    document.getElementById('loginBtn').style.display = 'none';
+    document.getElementById('signupBtn').style.display = 'none';
+     if (document.getElementById('loginBtnHero')) { // Check if element exists
+        document.getElementById('loginBtnHero').style.display = 'none';
+        document.getElementById('signupBtnHero').style.display = 'none';
+    }
 
-// Download logic
-const downloadButton = document.querySelector("#downloadButton");
-downloadButton.addEventListener("click", function () {
-    const certificate = document.querySelector(".generatedCertificate");
-    const fileFormat = document.querySelector("#fileFormat").value; // Get selected format
+    document.getElementById('userProfile').classList.remove('hidden');
+    document.getElementById('usernameDisplay').textContent = userName || "User"; // Use provided name
 
-    if (fileFormat === "jpg") {
-        // Image Download Logic (JPG)
-        html2canvas(certificate, {
-            scale: 2, // Improves resolution
-            useCORS: true // Handles cross-origin images
-        }).then((canvas) => {
-            const link = document.createElement("a");
-            link.download = "certificate.jpg"; // File name
-            link.href = canvas.toDataURL("image/jpeg"); // Convert canvas to JPG image
-            link.click(); // Trigger the download
-        });
-    } else if (fileFormat === "pdf") {
-        // PDF Download Logic
-        html2canvas(certificate, {
-            scale: 1.5, // Reducing scale to 1.5 to reduce the resolution
-            useCORS: true // Handles cross-origin images
-        }).then((canvas) => {
-            const { jsPDF } = window.jspdf;
-            const pdf = new jsPDF('p', 'mm', 'a4'); // Create a PDF instance
+    if(document.getElementById('createNowBtn')){
+        document.getElementById('createNowBtn').classList.remove('hidden');
+    }
 
-            // Get the dimensions of the canvas
-            const canvasWidth = canvas.width;
-            const canvasHeight = canvas.height;
-
-            // A4 size in mm (portrait)
-            const a4Width = 210;
-            const a4Height = 297;
-
-            // Calculate the aspect ratio of the canvas
-            const aspectRatio = canvasWidth / canvasHeight;
-
-            // Calculate the new width and height to maintain the aspect ratio
-            let newWidth = a4Width;
-            let newHeight = newWidth / aspectRatio;
-
-            // If the new height exceeds the A4 page height, adjust the width accordingly
-            if (newHeight > a4Height) {
-                newHeight = a4Height;
-                newWidth = newHeight * aspectRatio;
+}
+// Function to check login status on page load
+function checkLoginStatus() {
+    fetch('api/check_login.php') // Check login status via API
+        .then(response => response.json())
+        .then(data => {
+            if (data.loggedIn) {
+                showUserProfile(data.userName); // Pass username to showUserProfile
+            } else {
+                // Show login/signup buttons if not logged in
+                document.getElementById('loginBtn').style.display = 'inline-block';
+                document.getElementById('signupBtn').style.display = 'inline-block';
+                  if (document.getElementById('loginBtnHero')) {
+                    document.getElementById('loginBtnHero').style.display = 'inline-block';
+                    document.getElementById('signupBtnHero').style.display = 'inline-block';
+                }
             }
+        })
+        .catch(error => console.error('Error checking login status:', error));
+}
 
-            // Center the image on the page
-            const marginX = (a4Width - newWidth) / 2;
-            const marginY = (a4Height - newHeight) / 2;
+document.addEventListener('DOMContentLoaded', function () {
+    checkLoginStatus(); // Check login status on page load
 
-            // Convert the canvas to image data URL and add it to the PDF
-            const imgData = canvas.toDataURL('image/jpeg', 0.7); // Compressing to JPEG with 70% quality
-            pdf.addImage(imgData, 'JPEG', marginX, marginY, newWidth, newHeight);
-
-            // Save the PDF
-            pdf.save('certificate.pdf');
+    // Add event listener for dashboard link
+    const dashboardLink = document.getElementById('dashboardLink');
+    if (dashboardLink) {
+        dashboardLink.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default link behavior
+              window.location.href = 'create.html'; // Redirect to Dashboard
         });
     }
 });
 
 
-// Accessing template selected by user
-let certificateBackgroundSrc = "assets/Certificate Template 1.jpg";
 
-templates.forEach((template) => {
-    template.addEventListener("click", ()=>{
-        certificateBackgroundSrc = template.getAttribute('alt');
-        templates.forEach((temp) => {
-            temp.classList.remove('selected');
-        });
-        template.classList.add('selected');
+// Handle Login
+function handleLogin(event) {
+    event.preventDefault();
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    const loginErrorDiv = document.getElementById('loginError');
+
+    fetch('api/login.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            closeAuthModal();
+            // Instead of setting localStorage, check login status again
+            checkLoginStatus(); // This will update the UI based on session
+            if (window.location.pathname.endsWith('index.html')) {
+                 window.location.href = 'create.html'; // Redirect to create.html
+            }
+
+        } else {
+            // Show error message
+           loginErrorDiv.textContent = data.error;
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+       loginErrorDiv.textContent = 'An error occurred. Please try again.';
     });
-});
-// Accessing values entered by user in form
-let inputNameValue;
-let inputDateValue;
-let inputSignatureValue;
-let inputDetailsValue;
-
-let inputValues = () => {
-    inputNameValue = inputName.value || "Abdul Wahab Saim";
-    inputDateValue = inputDate.value || "29-12-2024";
-    inputSignatureValue = inputSignature.value || "saim";
-    inputDetailsValue = inputDetails.value || "Hi, I am Saim. rehan is not my friend; instead, i am a friend of Rehan. That is why I am giving this certificate to rehan.";
 }
 
-const certificate = document.querySelector(".generatedCertificate");
-const adjustFontSizes = () => {
-    const certificateWidth = certificate.offsetWidth;
 
-    // Scale font sizes based on certificate width
-    document.querySelector("#certificateName").style.fontSize = `${certificateWidth * 0.05}px`;
-    document.querySelector("#certificateDate").style.fontSize = `${certificateWidth * 0.015}px`;
-    document.querySelector("#certificateSignature").style.fontSize = `${certificateWidth * 0.025}px`;
-    document.querySelector("#certificateDetails").style.fontSize = `${certificateWidth * 0.020}px`;
-};
+// Handle Signup
+function handleSignup(event) {
+    event.preventDefault();
+    const name = document.getElementById('signupName').value;
+    const email = document.getElementById('signupEmail').value;
+    const password = document.getElementById('signupPassword').value;
+    const signupErrorDiv = document.getElementById('signupError');
 
-// Adjust fonts on window resize
-window.addEventListener("resize", adjustFontSizes);
-adjustFontSizes();
+    fetch('api/register.php', { // Use a separate register.php file
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email, password }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            closeAuthModal();
+            // Instead of setting localStorage, check login status
+            checkLoginStatus();
+            if (window.location.pathname.endsWith('index.html')) {
+                window.location.href = 'create.html'; // Redirect to create.html
+            }
 
-// Generating certificate and putting values in selected template
-displayCertificate = () => {
-    displayCertificateDiv.classList.remove('hidden');
-    certificateBackground.setAttribute("style", `background-image: url('${certificateBackgroundSrc}');`);
-    inputValues();
-    certificateName.textContent = inputNameValue;
-    certificateDate.textContent = inputDateValue;
-    certificateSignature.textContent = inputSignatureValue;
-    certificateDetails.textContent = inputDetailsValue;
-    adjustFontSizes();
+        } else {
+            // Show error message
+            signupErrorDiv.textContent = data.error;
+
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+         signupErrorDiv.textContent = 'An error occurred. Please try again.';
+    });
 }
 
-createButton.addEventListener("click", displayCertificate);
+//Smooth Scrolling
+function scrollToSection(sectionId) {
+    const section = document.querySelector(sectionId);
+    if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+    }
+}

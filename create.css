@@ -1,0 +1,176 @@
+/* Import common styles - Best Practice! */
+@import url('style.css');
+
+/* Add any create.html specific styles here */
+/* You might not need many if you've used reusable classes in style.css */
+#createMain {
+    padding: 2rem; /* Add some padding around the main content */
+}
+.certificate-template {
+    cursor: pointer; /* Indicate templates are clickable */
+}
+.displayCertificateDiv {
+  border: none !important;
+}
+/* Input Form */
+.certificate_form {
+    max-width: 950px;
+    width: 100%; /* Ensure form is responsive */
+    padding: 2.5rem; /* Consistent unit */
+    box-shadow: var(--box-shadow);
+    margin-bottom: 2.5rem; /* Consistent unit */
+    border-radius: var(--border-radius);
+    }
+    .certificate_form label{
+    display: block;  /* Labels on their own line */
+    margin-bottom: 0.3rem;  /* Space below label */
+    font-weight: 500;
+    }
+    .certificate_form input, .certificate_form textarea{
+    width: 100%;
+    padding: 0.625rem; /* Consistent unit */
+    border-radius: 5px;
+    margin-bottom: 0.625rem; /* Consistent unit */
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    }
+    .certificate_form input:focus,
+    .certificate_form textarea:focus {
+    outline: none;
+    border-color: var(--accent-color); /* Highlight on focus */
+    box-shadow: 0 0 5px rgba(0, 102, 204, 0.5); /* Subtle glow */
+    }
+    .certificate_form button {
+    width: 100%; /* Full-width button */
+    margin-top: 0.625rem; /* Consistent unit */
+    font-size: 1rem;
+    }
+    
+    /* display Certificate after generating*/
+    .displayCertificateDiv{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid black;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    }
+    
+    .displayCertificateDiv h1{
+    margin: 3.125rem 0px; /* Consistent unit */
+    font-size: 3rem; /* Consistent unit */
+    }
+    .displayCertificateDiv h1,
+#downloadOption {
+    display: none;
+}
+
+.displayCertificateDiv.visible h1,
+.displayCertificateDiv.visible #downloadOption {
+    display: block; /* Or flex, inline-block, etc. as needed */
+}
+    
+    .generatedCertificate{
+    position: relative;
+    max-width: 100%;
+    width: 100vmin;
+    height: 60vmin;
+    background-position: center;
+    background-size:cover;
+    border-radius: var(--border-radius);
+    }
+    #certificateBackground{
+    position: relative;
+    max-width: 100%;
+    width: 100vmin;
+    height: 70vmin;
+    background-position: contain;
+    background-repeat: no-repeat;
+    background-size:cover;
+    border-radius: var(--border-radius);
+    }
+    
+    #certificateName{
+    position: absolute;
+    color: #05294a;
+    top: 43%;
+    left: 50%;
+    font-size: calc(2.5vw);
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    text-align: center;
+    }
+    
+    #certificateDate{
+    position: absolute;
+    color: #05294a;
+    bottom: 24%;
+    left: 30.5%;
+    font-size: calc(1vw);
+    transform: translate(-50%, -50%);
+    }
+    
+    #certificateSignature{
+    position: absolute;
+    color: #05294a;
+    bottom: 23%;
+    right: 30.5%;
+    font-size: calc(1vw);
+    transform: translate(50%, -50%);
+    }
+    
+    #certificateDetails{
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    font-size: calc(1vw);
+    text-align: center;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    color: #05294a;
+    line-height: 1.5;
+    }
+    
+    .displayCertificateDiv button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    font-weight: bold;
+    padding: 0.625rem; /* Consistent unit */
+    margin: 1.25rem; /* Consistent unit */
+    font-size: 1rem; /* Consistent unit */
+    border-radius: var(--border-radius);
+    }
+    
+    #downloadOption select{
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    font-weight: bold;
+    padding: 0.3125rem 0.625rem; /* Consistent unit */
+    margin: 1.25rem; /* Consistent unit */
+    font-size: 1rem; /* Consistent unit */
+    border-radius: 5px;
+    }
+    #downloadOption label{
+    font-size: 1.3rem;
+    }
+    
+    /* Section to Display Certificates */
+    .Section_Certificates{
+    padding: 2rem;
+    text-align: center;
+    }
+    .Section_Certificates h1{
+    margin-bottom: 1rem;
+    }
+    .certificate-item {
+    border: 1px solid #ccc;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: var(--border-radius);
+    text-align: left; /* Align content to the left */
+    background-color: var(--white-color);
+    }
