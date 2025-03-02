@@ -1,0 +1,109 @@
+/* Import common styles - Best Practice! */
+@import url('style.css');
+
+/* Styles specific to the dashboard */
+#dashboard-main {
+    padding: 2rem;
+}
+
+/* Style the certificate items */
+.certificate-item {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    margin-bottom: 1rem; /* Keep margin for spacing */
+    border-radius: var(--border-radius);
+    background-color: var(--white-color);
+    box-shadow: var(--box-shadow);
+    transition: transform 0.2s ease-in-out;
+    /* ADD THESE: */
+    width: 470px;  /* Or whatever width you want */
+    height: 400px; /*  Match the height in displaySingleCertificate  */
+    /* Remove the flex properties if you have them here. */
+}
+
+/* Styling on hover */
+.certificate-item:hover {
+    transform: scale(1.02);  /* Slightly enlarge on hover */
+}
+
+/* Style the container for the certificate previews*/
+#userCertificates {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 470px); /* Responsive columns */
+    gap: 1.5rem; /* Space between certificates */
+  }
+
+/* Style for certificate actions (Edit/Delete) */
+.certificate-actions {
+    margin-top: 1rem; /* Add space above the buttons */
+    text-align: right; /* Right-align the buttons */
+}
+.certificate-actions button{
+    margin-left: .5rem;
+}
+/* Style the Edit button */
+.edit-button {
+    background-color: green; /* Green background */
+    /* Add any other specific styling for the edit button */
+}
+
+/* Style the Delete button */
+.delete-button {
+    background-color: red; /* Red background */
+    /* Add any other specific styling for the delete button */
+}
+/* Style for the loading message */
+.loading {
+    text-align: center;
+    font-style: italic;
+    color: #888; /* Gray color */
+}
+/* Style for the sort/filter controls container */
+.sort-filter-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+/* Style for the labels within sort/filter controls */
+.sort-filter-controls label {
+     margin-right: 0.5rem; /* Space between label and input */
+     white-space: nowrap; /* Prevent label from wrapping */
+}
+
+/* Style for the select and input elements within sort/filter controls */
+.sort-filter-controls select,
+.sort-filter-controls input{
+    padding: 0.5rem;
+    border-radius: var(--border-radius);
+    border: 1px solid #ccc;
+    font-size: 0.9rem;
+}
+/* Style for pagination */
+.pagination{
+    margin-top: 1rem;
+    text-align: center;
+    margin-right: 1rem;
+}
+/* ... existing styles ... */
+
+#paginationContainer {
+    text-align: center; /* Center the pagination */
+    margin-top: 1rem;    /* Add spacing above footer */
+    margin-bottom: 2rem; /* Add spacing below certificates */
+}
+
+.pagination {
+    display: inline-block; /* Make buttons inline for better horizontal spacing */
+    /* Style the pagination buttons as you wish */
+    button {
+        margin: 0 0.5rem; /* Add space between buttons */
+        padding: 0.5rem 1rem;
+        background-color: #4c6aaf; /* Example color */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+}

@@ -6,46 +6,77 @@
     <title>Certification Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
         <!-- Navbar -->
-        <div class="navbar">
+        <div class="navbar" role="navigation">
             <div class="navlinks">
-                <a href="index.html" id="brand_name">CertifyMe</a>
+                <!-- <a href="index.html" id="brand_name">CertifyMe</a> -->
+                <img src="assets/certifyme.png" id="brand_logo" alt="">
                 <a href="#Home">Home</a>
-                <a href="#Generate Certificate">Generate Certificate</a>
+                <a href="create.html">Generate Certificate</a>
                 <a href="#Templates">Templates</a>
-                <a href="#Contact Us">Contact Us</a>
+                <a href="#contact_us">Contact Us</a>
+            </div>
+            <div class="auth-links">
+                <!-- Links now point to login.html -->
+                <a href="login.html?action=login" id="loginBtn">Login</a>
+                <a href="login.html?action=signup" id="signupBtn">Sign Up</a>
+                <div id="userProfile" class="hidden">
+                    <span id="usernameDisplay"></span>
+                    <div class="dropdown">
+                         <i class="fas fa-user-circle"></i>
+                        <div class="dropdown-content">
+                            <a href="dashboard.html" id="dashboardLink">Dashboard</a>
+                            <a href="#" id="logoutBtn" onclick="handleLogout()">Logout</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
+
     <!-- Hero Section -->
     <div class="Hero" id="Home">
         <div class="hero_text">
-            <h1>Create a <span>certificate</span> for free in</h1>
-            <h1>minutes.</h1>
-            <p>Make unique certificates quickly and easily. No experience required.</p>
-            <button>Create Now</button>
+            <h1>Create a <span>certificate</span> for free in minutes.</h1>
+            <p>Make unique certificates quickly and easily.  No experience required.
+                <span id="authButtonsHero">
+                    <!-- Links now point to login.html -->
+                    <a href="login.html?action=login" id="loginBtnHero" class="auth-button">Login</a>
+                    <a href="login.html?action=signup" id="signupBtnHero" class="auth-button">Sign Up</a>
+                </span>
+                <br>
+                <button id="createNowBtn" class="hidden" onclick="window.location.href='create.html'">Create Now</button>
+            </p>
+
         </div>
         <div class="hero_img">
-            <img src="assets/Hero image.png" alt="">
+            <img src="assets/Hero image.png" alt="Hero Image">
         </div>
     </div>
+
+    <!-- NO MORE AUTH MODAL HERE -->
+
     <!-- Section 1 -->
-    <div class="Section1 Section" id="Generate Certificate">
+    <div class="Section1 Section" >
         <div class="section_text">
             <h1>Make stunning custom certificates with CertifyMe.</h1>
             <p>A certificate performs two crucial functions — it recognizes achievement and certifies a skill or qualification. Find the perfect certificate template in the CertifyMe online editor. No experience is required, so have fun with all the editing tools you need right at your fingertips to make an impactful certificate.</p>
         </div>
         <div class="section_img">
-            <img src="assets/certificates.gif" alt="">
+            <img src="assets/certificates.gif" alt="Certificates GIF">
         </div>
     </div>
     <!-- Section 2 -->
     <div class="Section2 Section">
         <div class="section_img">
-            <img src="assets/Hero image 2.png" alt="">
+            <img src="assets/Hero image 2.png" alt="Hero Image 2">
         </div>
         <div class="section_text">
             <h1>Design certificates with our certificate generator online for free</h1>
@@ -53,19 +84,19 @@
         </div>
     </div>
     <!-- Section 3 -->
-    <div class="Section3 Section" id="#Generate Certificate">
+    <div class="Section3 Section">
         <div class="section_text">
             <h1>Free certificate builder elements for a polished design</h1>
             <p>Design a certificate or award with our free certificate and award creator and enjoy unique creative assets at your fingertips. Choose the appropriate fonts for your honor roll certificate or your training completion award, embellish your design with flourishes for a certificate worth framing. Easily insert your school or company emblem or create one with our online certificate and award editor.</p>
         </div>
         <div class="section_img">
-            <img src="assets/Hero image 3.png" alt="">
+            <img src="assets/Hero image 3.png" alt="Hero Image 3">
         </div>
     </div>
     <!-- Section 4 -->
     <div class="Section4 Section">
         <div class="section_img">
-            <img src="assets/Hero image 4.png" alt="">
+            <img src="assets/Hero image 4.png" alt="Hero Image 4">
         </div>
         <div class="section_text">
             <h1>Make your own certificate on any device</h1>
@@ -81,19 +112,19 @@
             <div class="use_box">
                 <div>1</div>
                 <h2>Launch online certificate maker</h2>
-                <img src="assets/step1.png" alt="">
+                <img src="assets/step1.png" alt="Step 1">
                 <p>Choose a free certificate or award design template or a blank certificate page.</p>
             </div>
             <div class="use_box">
                 <div>2</div>
                 <h2>Launch online certificate maker</h2>
-                <img src="assets/step2.png" alt="">
+                <img src="assets/step2.png" alt="Step 2">
                 <p>Choose a free certificate or award design template or a blank certificate page.</p>
             </div>
             <div class="use_box">
                 <div>3</div>
                 <h2>Launch online certificate maker</h2>
-                <img src="assets/step3.png" alt="">
+                <img src="assets/step3.png" alt="Step 3">
                 <p>Choose a free certificate or award design template or a blank certificate page.</p>
             </div>
          </div>
@@ -105,47 +136,23 @@
         <h1>Create Your Certificate</h1>
         <p>Select a template, enter your details and click on Create Certificate to download or print your files</p>
         <div class="Templates_Container">
-            
-            <img src="assets/Template 1.jpg" class="certificate-template" alt="assets/Certificate Template 1.jpg">
-            <img src="assets/Template 2.jpg" class="certificate-template" alt="assets/Certificate Template 2.jpg">
-            <img src="assets/Template 3.webp" class="certificate-template" alt="assets/Certificate Template 3.jpg">
-            <img src="assets/Template 4.webp" class="certificate-template" alt="assets/Certificate Template 4.jpg">
-            <img src="assets/Template 5.webp" class="certificate-template" alt="assets/Certificate Template 5.jpg">
-            <img src="assets/Template 6.webp" class="certificate-template" alt="assets/Certificate Template 6.jpg">
-            <img src="assets/Template 7.webp" class="certificate-template" alt="assets/Certificate Template 7.jpg">
-            <img src="assets/Template 8.webp" class="certificate-template" alt="assets/Certificate Template 8.jpg">
+
+            <img src="assets/Template 1 thumb.jpg" class="certificate-template" alt="assets/Template 1.jpg" data-template-id="1">
+            <img src="assets/Template 2 thumb.jpg" class="certificate-template" alt="assets/Template 2.jpg" data-template-id="2">
+            <img src="assets/Template 3 thumb.webp" class="certificate-template" alt="assets/Template 3.webp" data-template-id="3">
+            <img src="assets/Template 4 thumb.webp" class="certificate-template" alt="assets/Template 4.webp" data-template-id="4">
+            <img src="assets/Template 5 thumb.webp" class="certificate-template" alt="assets/Template 5.webp" data-template-id="5">
+            <img src="assets/Template 6 thumb.webp" class="certificate-template" alt="assets/Template 6.webp" data-template-id="6">
+            <img src="assets/Template 7 thumb.webp" class="certificate-template" alt="assets/Template 7.webp" data-template-id="7">
+            <img src="assets/Template 8 thumb.webp" class="certificate-template" alt="assets/Template 8.webp" data-template-id="8">
 
         </div>
-        <div class="certificate_form">
-            <label for="Name">Name</label>
-            <input type="text" id="inputName" placeholder="Enter Your Name">
-            <label for="Date">Date</label>
-            <input type="date" id="inputDate" placeholder="Enter Date">
-            <label for="Signature">Signature</label>
-            <input type="text" id="inputSignature" placeholder="Enter Signature">
-            <label for="Details">Details</label>
-            <textarea name="Details" rows="5" id="inputDetails" placeholder="Enter Details"></textarea>
-            <button id="createButton">Create Certificate</button>
-        </div>
      </div>
-        <div class="displayCertificateDiv hidden">
-            <h1>Your Certificate is Ready</h1>
-            <div class="generatedCertificate" id="certificateBackground" style="background-image: url('assets/Template 1.webp');">
-                <h2 id="certificateName"></h1>
-                <p id="certificateDate"></p>
-                <p id="certificateSignature"></p>
-                <p id="certificateDetails"></p>
-            </div>
-            <div id="downloadOption">
-                <label for="fileFormat">Choose file format:</label>
-                <select id="fileFormat">
-                    <option value="jpg">JPG</option>
-                    <option value="pdf">PDF</option>
-                </select>
-                <button id="downloadButton">Download Certificate</button>
-            </div>
-        </div>
-     
+
+    <!-- Section Divider -->
+    <div class="divider"></div>
+
+
     <!-- Footer -->
     <footer>
         <div class="footer_section" id="contact_us">
@@ -156,32 +163,34 @@
                     <label for="Your Name">Your Name</label>
                     <input type="text" placeholder="Enter Your Name">
                     <label for="Your Email">Your email</label>
-                    <input type="email" placeholder="Enter Your email">
+                    <input type="email" placeholder="Enter your email">
                     <label for="Your Message">Your Message</label>
                     <textarea name="Message" id="text" rows="5" placeholder="Type Your Message here"></textarea>
                     <button>Send Message</button>
                 </div>
                 <div id="my_info" class="footer_box">
-                    <h1>Let's Connect</h2>
+                    <h1>Let's Connect</h1>
                     <p>Follow me on social media or drop me an email!</p>
-                    <div class="icon">
-                        <div class="icon_img" id="icon_img1">
-                            <img src="assets/linkedin.png" alt="LinkedIn">
+                    <div class="icon_container">
+                        <div class="icon">
+                            <div class="icon_img">
+                                <img src="assets/linkedin.png" alt="LinkedIn">
+                            </div>
+                            <p>Facebook</p>
                         </div>
-                        <p>Facebook</p>
-                    </div>
-                    <div class="icon">
-                        <div class="icon_img" id="icon_img2">
-                            <img src="assets/github.png" alt="GitHub">
+                        <div class="icon">
+                            <div class="icon_img">
+                                <img src="assets/github.png" alt="GitHub">
+                            </div>
+                            <p>GitHub</p>
                         </div>
-                        <p>GitHub</p>
-                    </div>
-                    <div class="icon">
-                        <div class="icon_img" id="icon_img3">
-                            <img src="assets/twitter.png" alt="Twitter">
+                        <div class="icon">
+                            <div class="icon_img">
+                                <img src="assets/twitter.png" alt="Twitter">
+                            </div>
+                            <p>Twitter</p>
                         </div>
-                        <p>Twitter</p>
-                    </div>
+                        </div>
                     <p>Email: <a href="#ahmarsaim58@gmail.com" type="email">ahmarsaim58@gmail.com</a></p>
                 </div>
             </div>
