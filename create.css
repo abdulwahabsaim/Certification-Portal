@@ -62,15 +62,6 @@
     margin: 3.125rem 0px; /* Consistent unit */
     font-size: 3rem; /* Consistent unit */
     }
-    .displayCertificateDiv h1,
-#downloadOption {
-    display: none;
-}
-
-.displayCertificateDiv.visible h1,
-.displayCertificateDiv.visible #downloadOption {
-    display: block; /* Or flex, inline-block, etc. as needed */
-}
     
     .generatedCertificate{
     position: relative;

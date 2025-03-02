@@ -1,12 +1,13 @@
 /* General Reset and Base Styles */
 :root {
-    --primary-color: #526D82;
+    --primary-color: #526d82;
     --secondary-color: #27374D;
     --accent-color: #0066cc;
     --accent-hover-color: #004c99;
     --text-color: #333;
     --background-color: #f4f4f4;
     --white-color: #fff;
+    --black-color: #000;
     --box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
     --font-family: 'Poppins', sans-serif;
     --border-radius: 10px;
@@ -25,7 +26,9 @@ body {
     color: var(--text-color);
     line-height: 1.6;
 }
-
+.hidden {
+    display: none !important;
+}
 a {
     text-decoration: none;
     color: var(--accent-color);
@@ -58,7 +61,7 @@ button:hover {
 
 /* Navbar */
 .navbar {
-    background-color: var(--secondary-color);
+    background-color: var(--primary-color);
     padding: 0.8rem 0;
     display: flex;
     justify-content: space-between;
@@ -74,9 +77,11 @@ button:hover {
     flex-wrap: wrap;
     justify-content: center;
     flex-grow: 1;
+    /* margin-right: 20vw; */
 }
 
 .navlinks a {
+    /* font-weight: bold; */
     color: var(--white-color);
     font-size: 1rem;
     padding: 0.5rem;
@@ -84,10 +89,16 @@ button:hover {
 }
 
 .navlinks a:hover {
-    background-color: #555;
+    background-color: #354857;
     border-radius: 5px;
 }
-
+#brand_logo{
+    size: 1rem;
+    width: 250px;
+    margin-right: auto;
+    /* background-color: var(--white-color);
+    border-radius: 10px; */
+}
 #brand_name {
     font-weight: bold;
     font-size: 1.2rem !important;
@@ -104,19 +115,26 @@ button:hover {
     align-items: center;
     margin-left: 2rem; /*Remove margin*/
 }
-
+#usernameDisplay{
+    color: var(--white-color);
+    font-size: 1.5rem;
+    font-weight: bold;
+}
 .auth-links a, #userProfile button, #userProfile a  {
     padding: 0.5rem 0.8rem;
     border-radius: 5px;
     cursor: pointer;
     font-size: 0.9rem;
     color: var(--white-color);
-    background-color: var(--accent-color);
+    background-color: var(--primary-color);
     border: none;
+}
+.auth-links a{
+    background-color: var(--secondary-color);
 }
 
 #userProfile {
-  display: flex;
+    display: flex;
     align-items: center;
     gap: 0.5rem;
 }
@@ -134,9 +152,9 @@ button:hover {
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: var(--secondary-color);
+    background-color: var(--primary-color);
     min-width: 120px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4);
     z-index: 1;
     right: 0;
     border-radius: var(--border-radius);
@@ -155,7 +173,7 @@ button:hover {
 }
 
 .fa-user-circle {
-    font-size: 1.8rem;
+    font-size: 2.3rem;
     color: var(--white-color);
     cursor: pointer;
 }
@@ -183,9 +201,14 @@ button:hover {
 }
 
 .hero_text p {
+    max-width: 75%;
     margin-top: 0.7rem;
-    font-size: 1rem;
-    margin-bottom: 1.2rem;
+    font-size: 1.7rem;
+    margin-bottom: 2rem;
+}
+#createNowBtn{
+    margin-top: 1rem;
+    font-size: 1.5rem;
 }
 
 /* Style for auth buttons in Hero Section */

@@ -29,23 +29,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($result->num_rows === 1) {
         $row = $result->fetch_assoc();
-        if (password_verify($password, $row['password'])) {
-            // Password is correct, start session (or set other login indicators)
-            session_start();  //  IMPORTANT!  Start the session
-            $_SESSION['user_id'] = $row['user_id']; // Store the user ID
-            $_SESSION['user_email'] = $row['email']; // Store the email (optional)
-            $_SESSION['user_name'] = $row['name'];   // Store the user's name
+//if (password_verify($password, $row['password'])) {
+        if ($password === $row['password']) {
+            // Password is correct, start session
+            session_start();  // IMPORTANT! Start the session
+            $_SESSION['user_id'] = $row['user_id'];
+            $_SESSION['user_email'] = $row['email'];
+            $_SESSION['user_name'] = $row['name']; // Store user's name
 
-            echo json_encode(["success" => true, "email" => $row['email'], "name" => $row['name']]); // Return user data
+            // Return success and redirect URL
+            echo json_encode(["success" => true, "redirect" => "create.html"]);
+            exit(); // Important: Stop execution after redirect
         } else {
             echo json_encode(["success" => false, "error" => "Invalid password."]);
+             exit();
         }
     } else {
         echo json_encode(["success" => false, "error" => "Invalid email."]);
+         exit();
     }
 
     $stmt->close();
     $conn->close();
 } else {
      echo json_encode(["success" => false, "error" => "Invalid Request."]);
+     exit();
 }

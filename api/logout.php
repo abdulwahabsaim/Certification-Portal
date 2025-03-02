@@ -8,8 +8,9 @@ $_SESSION = array();
 // Destroy the session
 session_destroy();
 
-// Send a success response (optional)
-header('Content-Type: application/json');
-echo json_encode(["success" => true, "message" => "Logged out successfully"]);
+// Send a success response and redirect
+header('Content-Type: application/json'); // Add this for consistency
+echo json_encode(["success" => true, 'redirect' => 'index.html']); // Send redirect
+exit; // Very important! Stop script execution after the redirect
 
 ?>
